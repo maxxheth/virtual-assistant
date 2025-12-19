@@ -196,7 +196,7 @@ export class VirtualAssistantSettingTab extends PluginSettingTab {
     }
 
     private async testApiConnection(): Promise<void> {
-        if (!this.plugin.settings.geminiApiKey) {
+        if (!this.plugin.settings.geminiApiKey && !process.env.GEMINI_API_KEY) {
             new Notice('Please enter an API key first');
             return;
         }
@@ -204,10 +204,10 @@ export class VirtualAssistantSettingTab extends PluginSettingTab {
         try {
             new Notice('Testing connection...');
             const result = await this.plugin.geminiService.testConnection();
-            if (result) {
+            if (result.success) {
                 new Notice('✅ Connection successful!');
             } else {
-                new Notice('❌ Connection failed. Check your API key.');
+                new Notice(`❌ Connection failed: ${result.error || 'Unknown error'}`);
             }
         } catch (error) {
             new Notice(`❌ Error: ${error instanceof Error ? error.message : 'Unknown error'}`);

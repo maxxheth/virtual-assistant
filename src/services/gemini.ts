@@ -29,8 +29,11 @@ export class GeminiService {
     }
 
     private initializeClient(): void {
-        if (this.settings.geminiApiKey) {
-            this.client = new GoogleGenerativeAI(this.settings.geminiApiKey);
+        // Try environment variable first, then settings
+        const apiKey = this.settings.geminiApiKey || process.env.GEMINI_API_KEY || '';
+        
+        if (apiKey) {
+            this.client = new GoogleGenerativeAI(apiKey);
             this.model = this.client.getGenerativeModel({ 
                 model: this.settings.defaultModel 
             });
@@ -44,16 +47,28 @@ export class GeminiService {
         return this.client !== null && this.settings.geminiApiKey !== '';
     }
 
-    async testConnection(): Promise<boolean> {
+    async testConnection(): Promise<{ success: boolean; error?: string }> {
         if (!this.isConfigured()) {
-            return false;
+            return { 
+                success: false, 
+                error: 'API key not configured. Please add your Gemini API key in settings.' 
+            };
         }
 
         try {
             const response = await this.generateText('Say "Hello" in one word.');
-            return response.success;
-        } catch {
-            return false;
+            if (!response.success) {
+                return { 
+                    success: false, 
+                    error: response.error || 'Unknown error during test' 
+                };
+            }
+            return { success: true };
+        } catch (error) {
+            return { 
+                success: false, 
+                error: error instanceof Error ? error.message : 'Connection test failed' 
+            };
         }
     }
 

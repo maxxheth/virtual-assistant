@@ -218,10 +218,10 @@ export default class VirtualAssistantPlugin extends Plugin {
             callback: async () => {
                 new Notice('Testing connection...');
                 const result = await this.geminiService.testConnection();
-                if (result) {
+                if (result.success) {
                     new Notice('✅ Connection successful!');
                 } else {
-                    new Notice('❌ Connection failed. Check your API key in settings.');
+                    new Notice(`❌ ${result.error || 'Connection failed'}`);
                 }
             }
         });
