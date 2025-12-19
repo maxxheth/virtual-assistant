@@ -3,7 +3,7 @@ import VirtualAssistantPlugin from './main';
 
 export interface VirtualAssistantSettings {
     geminiApiKey: string;
-    defaultModel: 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-flash-exp';
+    defaultModel: 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
     taskTemplateFolder: string;
     canvasOutputFolder: string;
     chatHistoryEnabled: boolean;
@@ -14,7 +14,7 @@ export interface VirtualAssistantSettings {
 
 export const DEFAULT_SETTINGS: VirtualAssistantSettings = {
     geminiApiKey: '',
-    defaultModel: 'gemini-1.5-flash',
+    defaultModel: 'gemini-2.5-flash',
     taskTemplateFolder: 'Tasks',
     canvasOutputFolder: 'Canvas',
     chatHistoryEnabled: true,
@@ -84,12 +84,14 @@ export class VirtualAssistantSettingTab extends PluginSettingTab {
             .setName('Default Model')
             .setDesc('The default Gemini model to use for generation')
             .addDropdown(dropdown => dropdown
-                .addOption('gemini-1.5-flash', 'Gemini 1.5 Flash (Fast)')
-                .addOption('gemini-1.5-pro', 'Gemini 1.5 Pro (Powerful)')
-                .addOption('gemini-2.0-flash-exp', 'Gemini 2.0 Flash (Experimental)')
+                .addOption('gemini-3.0-flash', 'Gemini 3.0 Flash (Latest, Fast)')
+                .addOption('gemini-2.5-flash', 'Gemini 2.5 Flash (Recommended)')
+                .addOption('gemini-2.5-pro', 'Gemini 2.5 Pro (Most Powerful)')
+                .addOption('gemini-1.5-flash', 'Gemini 1.5 Flash (Legacy)')
+                .addOption('gemini-1.5-pro', 'Gemini 1.5 Pro (Legacy)')
                 .setValue(this.plugin.settings.defaultModel)
                 .onChange(async (value) => {
-                    this.plugin.settings.defaultModel = value as 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-flash-exp';
+                    this.plugin.settings.defaultModel = value as 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
                     await this.plugin.saveSettings();
                 })
             );
