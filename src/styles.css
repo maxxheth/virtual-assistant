@@ -1,0 +1,458 @@
+/* Virtual Assistant Plugin Styles */
+
+/* ===== Variables ===== */
+:root {
+    --va-primary: #7c3aed;
+    --va-primary-light: #a78bfa;
+    --va-primary-dark: #5b21b6;
+    --va-success: #10b981;
+    --va-warning: #f59e0b;
+    --va-error: #ef4444;
+    --va-user-bg: #7c3aed;
+    --va-assistant-bg: var(--background-secondary);
+    --va-border-radius: 12px;
+    --va-transition: all 0.2s ease;
+}
+
+.theme-dark {
+    --va-user-bg: #6d28d9;
+    --va-assistant-bg: #1e1e2e;
+}
+
+/* ===== Chat Container ===== */
+.va-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--background-primary);
+}
+
+/* ===== Header ===== */
+.va-chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--background-modifier-border);
+    background: linear-gradient(135deg, var(--va-primary), var(--va-primary-dark));
+}
+
+.va-chat-header h4 {
+    margin: 0;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.va-chat-header-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.va-header-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    cursor: pointer;
+    color: white;
+    transition: var(--va-transition);
+}
+
+.va-header-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.va-header-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Messages Container ===== */
+.va-messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ===== Message Bubbles ===== */
+.va-message {
+    display: flex;
+    gap: 10px;
+    max-width: 90%;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.va-message-user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.va-message-assistant {
+    align-self: flex-start;
+}
+
+.va-message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.va-message-user .va-message-avatar {
+    background: var(--va-primary);
+    color: white;
+}
+
+.va-message-assistant .va-message-avatar {
+    background: var(--background-modifier-border);
+    color: var(--text-normal);
+}
+
+.va-message-avatar svg {
+    width: 18px;
+    height: 18px;
+}
+
+.va-message-content {
+    padding: 12px 16px;
+    border-radius: var(--va-border-radius);
+    line-height: 1.5;
+}
+
+.va-message-user .va-message-content {
+    background: var(--va-user-bg);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.va-message-user .va-message-content p {
+    color: white;
+    margin: 0;
+}
+
+.va-message-assistant .va-message-content {
+    background: var(--va-assistant-bg);
+    color: var(--text-normal);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.va-message-content p {
+    margin: 0 0 8px 0;
+}
+
+.va-message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.va-message-content ul,
+.va-message-content ol {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.va-message-content code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.va-message-content pre {
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.va-message-timestamp {
+    font-size: 10px;
+    color: var(--text-muted);
+    align-self: flex-end;
+    padding-bottom: 4px;
+}
+
+/* ===== Welcome Message ===== */
+.va-welcome {
+    max-width: 100%;
+}
+
+.va-welcome .va-message-content {
+    background: linear-gradient(135deg, var(--background-secondary), var(--background-primary));
+    border: 1px solid var(--background-modifier-border);
+}
+
+/* ===== Loading Indicator ===== */
+.va-loading .va-message-content {
+    padding: 16px 24px;
+}
+
+.va-loading-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.va-loading-dots span {
+    width: 8px;
+    height: 8px;
+    background: var(--va-primary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.va-loading-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.va-loading-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* ===== Input Area ===== */
+.va-input-area {
+    padding: 12px 16px;
+    border-top: 1px solid var(--background-modifier-border);
+    background: var(--background-primary);
+}
+
+.va-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: var(--va-border-radius);
+    padding: 8px 12px;
+    transition: var(--va-transition);
+}
+
+.va-input-wrapper:focus-within {
+    border-color: var(--va-primary);
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+.va-input-field {
+    flex: 1;
+    border: none;
+    background: transparent;
+    resize: none;
+    min-height: 24px;
+    max-height: 150px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-normal);
+    outline: none;
+}
+
+.va-input-field::placeholder {
+    color: var(--text-muted);
+}
+
+.va-send-btn {
+    background: var(--va-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    transition: var(--va-transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.va-send-btn:hover:not(:disabled) {
+    background: var(--va-primary-dark);
+    transform: scale(1.05);
+}
+
+.va-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.va-send-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* ===== Quick Actions ===== */
+.va-quick-actions {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px 16px;
+    overflow-x: auto;
+}
+
+.va-quick-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: var(--va-transition);
+}
+
+.va-quick-action-btn:hover {
+    background: var(--va-primary);
+    border-color: var(--va-primary);
+    color: white;
+}
+
+.va-quick-action-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ===== Scrollbar ===== */
+.va-messages-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.va-messages-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.va-messages-container::-webkit-scrollbar-thumb {
+    background: var(--background-modifier-border);
+    border-radius: 3px;
+}
+
+.va-messages-container::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* ===== Task Modal ===== */
+.va-modal-content {
+    padding: 20px;
+}
+
+.va-modal-field {
+    margin-bottom: 16px;
+}
+
+.va-modal-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.va-modal-field input,
+.va-modal-field textarea,
+.va-modal-field select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-primary);
+    color: var(--text-normal);
+}
+
+.va-modal-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.va-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.va-modal-actions button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--va-transition);
+}
+
+.va-modal-actions .va-btn-primary {
+    background: var(--va-primary);
+    border: none;
+    color: white;
+}
+
+.va-modal-actions .va-btn-primary:hover {
+    background: var(--va-primary-dark);
+}
+
+.va-modal-actions .va-btn-secondary {
+    background: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    color: var(--text-normal);
+}
+
+.va-modal-actions .va-btn-secondary:hover {
+    background: var(--background-modifier-hover);
+}
+
+/* ===== Canvas Button in Chat ===== */
+.va-canvas-preview {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 8px;
+    background: var(--background-primary);
+}
+
+.va-canvas-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.va-canvas-preview-header svg {
+    color: var(--va-primary);
+}
+
+.va-open-canvas-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--va-primary);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: var(--va-transition);
+}
+
+.va-open-canvas-btn:hover {
+    background: var(--va-primary-dark);
+}

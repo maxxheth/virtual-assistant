@@ -1,0 +1,10 @@
+{
+	"id": "virtual-assistant",
+	"name": "Virtual Assistant",
+	"version": "1.0.0",
+	"minAppVersion": "1.4.0",
+	"description": "AI-powered virtual assistant integrating Google AI Studio (Gemini) for intelligent task management, canvas visualization, and chat interface with MCP server support.",
+	"author": "Maxx",
+	"authorUrl": "https://github.com/maxx",
+	"isDesktopOnly": false
+}

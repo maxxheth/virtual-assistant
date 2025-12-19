@@ -1,0 +1,37 @@
+services:
+  # Development environment with hot reload
+  dev:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    # Keep container running for development
+    stdin_open: true
+    tty: true
+
+  # Build production artifacts
+  build:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - ./dist:/app/dist
+      - ./main.js:/app/main.js
+    command: npm run build
+
+  # MCP Server
+  mcp-server:
+    build:
+      context: ./mcp-server
+      target: production
+    environment:
+      - VAULT_PATH=${VAULT_PATH:-/vault}
+    volumes:
+      - ${VAULT_PATH:-./test-vault}:/vault:rw
+    stdin_open: true
+    tty: true

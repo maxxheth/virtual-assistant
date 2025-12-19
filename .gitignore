@@ -1,0 +1,34 @@
+# Build output
+main.js
+*.js.map
+
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Obsidian
+data.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+dist/
+*.tsbuildinfo
+
+# MCP Server build
+mcp-server/dist/
