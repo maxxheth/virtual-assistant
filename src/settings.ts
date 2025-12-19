@@ -3,7 +3,7 @@ import VirtualAssistantPlugin from './main';
 
 export interface VirtualAssistantSettings {
     geminiApiKey: string;
-    defaultModel: 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
+    defaultModel: 'gemini-3.0-pro' | 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
     taskTemplateFolder: string;
     canvasOutputFolder: string;
     chatHistoryEnabled: boolean;
@@ -84,14 +84,15 @@ export class VirtualAssistantSettingTab extends PluginSettingTab {
             .setName('Default Model')
             .setDesc('The default Gemini model to use for generation')
             .addDropdown(dropdown => dropdown
+                .addOption('gemini-3.0-pro', 'Gemini 3.0 Pro (Most Advanced)')
                 .addOption('gemini-3.0-flash', 'Gemini 3.0 Flash (Latest, Fast)')
                 .addOption('gemini-2.5-flash', 'Gemini 2.5 Flash (Recommended)')
-                .addOption('gemini-2.5-pro', 'Gemini 2.5 Pro (Most Powerful)')
+                .addOption('gemini-2.5-pro', 'Gemini 2.5 Pro (Powerful)')
                 .addOption('gemini-1.5-flash', 'Gemini 1.5 Flash (Legacy)')
                 .addOption('gemini-1.5-pro', 'Gemini 1.5 Pro (Legacy)')
                 .setValue(this.plugin.settings.defaultModel)
                 .onChange(async (value) => {
-                    this.plugin.settings.defaultModel = value as 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
+                    this.plugin.settings.defaultModel = value as 'gemini-3.0-pro' | 'gemini-3.0-flash' | 'gemini-2.5-flash' | 'gemini-2.5-pro' | 'gemini-1.5-flash' | 'gemini-1.5-pro';
                     await this.plugin.saveSettings();
                 })
             );
