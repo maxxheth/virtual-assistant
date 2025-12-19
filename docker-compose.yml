@@ -20,9 +20,9 @@ services:
       context: .
       target: builder
     volumes:
-      - ./dist:/app/dist
-      - ./main.js:/app/main.js
-    command: npm run build
+      # Mount output directory for build artifacts
+      - ./build-output:/app/build-output
+    command: sh -c "npm run build && cp main.js manifest.json styles.css build-output/"
 
   # MCP Server
   mcp-server:
@@ -30,8 +30,10 @@ services:
       context: ./mcp-server
       target: production
     environment:
-      - VAULT_PATH=${VAULT_PATH:-/vault}
+      # VAULT_PATH must point to the container mount point, not the host path
+      - VAULT_PATH=/vault
     volumes:
-      - ${VAULT_PATH:-./test-vault}:/vault:rw
+      # Mount host vault path to /vault in container
+      - ${VAULT_PATH:-/home/maxx/Documents/Obsidian}:/vault:rw
     stdin_open: true
     tty: true
